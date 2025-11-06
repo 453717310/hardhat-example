@@ -1,5 +1,7 @@
 import hre, { network } from "hardhat";
+import { verifyContract } from "@nomicfoundation/hardhat-verify/verify";
 import { getContract } from "viem";
+
 
 
 const { viem } = await network.connect({
@@ -20,6 +22,14 @@ const address =  fundMe.address;
 
 console.log("contract is address:",address);
 
+// contract verify
+await verifyContract({
+    address:address,
+    constructorArgs:[100n],
+    provider:"etherscan",
+
+},hre);
+
 const fundMeNew = getContract({
     address:fundMe.address,
     abi: fundMe.abi,
@@ -28,13 +38,12 @@ const fundMeNew = getContract({
     }
 })
 
-
 await fundMeNew.write.fund({
    value: 4n*10n ** 15n,
 });
 
 
-await fundMeNew.write.refund()
+// await fundMeNew.write.refund()
 
 
 

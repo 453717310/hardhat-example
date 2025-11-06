@@ -44,7 +44,7 @@ const config: HardhatUserConfig = {
   },
   verify: {
     etherscan: {
-      apiKey: "YOUR_ETHERSCAN_API_KEY",
+      apiKey: configVariable("YOUR_ETHERSCAN_API_KEY"),
     },
   },
   
